@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      News: {{news.Title}}
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only>
+        <ion-icon name="share"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <img src="{{news.Image}}">
+  <ion-row>
+    <ion-col center text-left>
+      <ion-icon name="person"></ion-icon>
+      <ion-note>
+        {{news.Author}}
+      </ion-note>
+    </ion-col>
+    <ion-col center text-right>
+      <ion-icon name="time"></ion-icon>
+      <ion-note>
+        {{news.Date | date:'dd.MM.yyyy'}}
+      </ion-note>
+    </ion-col>
+  </ion-row>
+  <h1>{{news.Title}}</h1>
+  <h4>{{news.Teaser}}</h4>
+  <p [innerHTML]="news.Content"></p>
+</ion-content>

@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-navbar no-border-bottom>
+    <ion-segment [(ngModel)]="category" (ionChange)="categoryChanged()">
+      <ion-segment-button value="All">
+        All News
+      </ion-segment-button>
+      <ion-segment-button value="Local">
+        Local News
+      </ion-segment-button>
+    </ion-segment>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="popover($event)">
+        <ion-icon name="more"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+  <ion-toolbar no-border-top>
+    <ion-searchbar [(ngModel)]="searchQuery" (ionInput)="search()"> </ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-refresher (ionRefresh)="refresh($event)">
+    <ion-refresher-content> </ion-refresher-content>
+  </ion-refresher>
+  <ion-list>
+    <button ion-item *ngFor="let news of newsList" (click)="detail(news.Id)" text-wrap>
+      <ion-thumbnail item-start>
+        <img src="{{news.ImageThumbnail}}">
+      </ion-thumbnail>
+      <h2>{{news.Title}}</h2>
+      <p>{{news.Teaser}}</p>
+    </button>
+  </ion-list>
+</ion-content>
