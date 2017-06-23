@@ -1,0 +1,1 @@
+<img src="resources/screenshots/ionic-news-app.png" alt="IonicNewsApp">
