@@ -4,7 +4,7 @@
       News: {{news.Title}}
     </ion-title>
     <ion-buttons end>
-      <button ion-button icon-only>
+      <button ion-button icon-only (click)="popover($event)">
         <ion-icon name="share"></ion-icon>
       </button>
     </ion-buttons>

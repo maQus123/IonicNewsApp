@@ -3,7 +3,7 @@ import { NavController } from 'ionic-angular';
 import { NewsService } from '../../providers/news-service/news-service';
 import { NewsDetailPage } from '../news-detail/news-detail';
 import { PopoverController } from 'ionic-angular';
-import { PopoverPage } from '../popover/popover';
+import { PopoverSettingsPage } from '../popover-settings/popover-settings';
 
 @Component({
   selector: 'page-news-list',
@@ -17,8 +17,8 @@ export class NewsListPage implements OnInit {
   public errorMessage: string;
   public newsList: any = [];
   public newsListCopy: any = [];
-  public searchQuery: string = "";
-  public category: string = "All";
+  public searchQuery: string = '';
+  public category: string = 'All';
 
   constructor(navCtrl: NavController, newsService: NewsService, popoverCtrl: PopoverController) {
     this.navCtrl = navCtrl;
@@ -30,34 +30,34 @@ export class NewsListPage implements OnInit {
     this.navCtrl.push(NewsDetailPage, { id: newsId });
   }
 
-  ngOnInit() {
+  loadNews(refresher?: any) {
+    if (refresher) {
+      setTimeout(() => {
+        refresher.complete();
+      }, 3000);
+    }
     this.newsService.getNewsList().subscribe(
-      news => {
-        this.newsList = news.filter((item) => { return (item.Category === this.category) }),
-          this.newsListCopy = this.newsList
+      (news) => {
+        if (this.category == 'Local') {
+          news = news.filter((item) => { return (item.Category === this.category) });
+        }
+        this.newsList = news;
+        if(refresher) {
+          refresher.complete();
+        }
+        this.newsListCopy = this.newsList;
+        this.search();
       },
       error => this.errorMessage = error);
+  }
+
+  ngOnInit() {
+    this.loadNews();
   }
 
   popover(event) {
-    let popover = this.popoverCtrl.create(PopoverPage);
-    popover.present({
-      ev: event
-    });
-  }
-
-  refresh(refresher: any) {
-    setTimeout(() => {
-      refresher.complete();
-    }, 3000);
-    this.newsService.getNewsList().subscribe(
-      news => {
-        this.newsList = news.filter((item) => { return (item.Category === this.category) }),
-          this.newsListCopy = this.newsList,
-          refresher.complete(),
-          this.searchQuery = ""
-      },
-      error => this.errorMessage = error);
+    let popover = this.popoverCtrl.create(PopoverSettingsPage);
+    popover.present({ ev: event });
   }
 
   search() {
@@ -69,16 +69,6 @@ export class NewsListPage implements OnInit {
         );
       })
     }
-  }
-
-  categoryChanged() {
-    this.newsService.getNewsList().subscribe(
-      news => {
-        this.newsList = news.filter((item) => { return (item.Category === this.category) }),
-          this.newsListCopy = this.newsList,
-          this.search()
-      },
-      error => this.errorMessage = error);
   }
 
 }

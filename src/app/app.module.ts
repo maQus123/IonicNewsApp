@@ -8,14 +8,17 @@ import { MyApp } from './app.component';
 import { NewsListPage } from '../pages/news-list/news-list';
 import { NewsService } from '../providers/news-service/news-service';
 import { NewsDetailPage } from '../pages/news-detail/news-detail';
-import { PopoverPage } from '../pages/popover/popover';
+import { PopoverSettingsPage } from '../pages/popover-settings/popover-settings';
+import { PopoverSharePage } from '../pages/popover-share/popover-share';
+import { SocialSharing } from '@ionic-native/social-sharing';
 
 @NgModule({
   declarations: [
     MyApp,
     NewsListPage,
     NewsDetailPage,
-    PopoverPage
+    PopoverSettingsPage,
+    PopoverSharePage
   ],
   imports: [
     BrowserModule,
@@ -27,13 +30,15 @@ import { PopoverPage } from '../pages/popover/popover';
     MyApp,
     NewsListPage,
     NewsDetailPage,
-    PopoverPage
+    PopoverSettingsPage,
+    PopoverSharePage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    NewsService
+    NewsService,
+    SocialSharing
   ]
 })
 export class AppModule {}

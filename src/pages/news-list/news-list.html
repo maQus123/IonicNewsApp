@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar no-border-bottom>
-    <ion-segment [(ngModel)]="category" (ionChange)="categoryChanged()">
+    <ion-segment [(ngModel)]="category" (ionChange)="loadNews()">
       <ion-segment-button value="All">
         All News
       </ion-segment-button>
@@ -19,7 +19,7 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-refresher (ionRefresh)="refresh($event)">
+  <ion-refresher (ionRefresh)="loadNews($event)">
     <ion-refresher-content> </ion-refresher-content>
   </ion-refresher>
   <ion-list>
